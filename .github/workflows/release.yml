@@ -24,11 +24,11 @@ jobs:
         run: |
           # Variables
           tag=$(git describe --tags --abbrev=0)
-          release_name="App-$tag"
+          release_name="${{ github.repository }}-$tag"
           # Publish
           dotnet publish --no-restore -c Release -o "$release_name"
           # Zip the build
-          7z a -tzip "${release_name}.zip" "./${release_name}/"
+          7z a -tzip "${release_name}.zip" "${release_name}/*"
           # Delete output directory
           rm -r "$release_name"
 
