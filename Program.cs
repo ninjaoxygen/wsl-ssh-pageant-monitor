@@ -4,10 +4,9 @@
 [return: MarshalAs(UnmanagedType.Bool)]
 static extern bool AllocConsole();
 
-AllocConsole();
-
 if (args.Length < 3)
 {
+    AllocConsole();
     Console.Error.WriteLine("wsl-ssh-pageant-monitor.exe sock executable arguments");
     Console.Error.WriteLine("press any key to exit...");
     Console.ReadKey();
