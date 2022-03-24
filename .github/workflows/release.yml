@@ -27,8 +27,11 @@ jobs:
           release_name="${{ github.event.repository.name }}-$tag"
           # Publish
           dotnet publish --no-restore --no-self-contained -r win-x64 -c Release -o "$release_name"
+          cd "${release_name}"
           # Zip the build
-          7z a -tzip "${release_name}.zip" "${release_name}/*"
+          7z a -tzip "../${release_name}.zip" "*"
+          # Go back
+          cd ..
           # Delete output directory
           rm -r "$release_name"
 
