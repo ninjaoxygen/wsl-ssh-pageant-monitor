@@ -1,0 +1,41 @@
+on:
+  push:
+    branches: [ main ]
+    tags:
+      - "v*.*.*"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v2.0.0
+        with:
+          dotnet-version: 6.0.x
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build
+        shell: bash
+        run: |
+          # Variables
+          tag=$(git describe --tags --abbrev=0)
+          release_name="App-$tag"
+          # Publish
+          dotnet publish --no-restore -c Release -o "$release_name"
+          # Zip the build
+          zip -r "${release_name}.zip" "./${release_name}/*"
+          # Delete output directory
+          rm -r "$release_name"
+
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          release_name: Release ${{ github.ref }}
+          prerelease: false
