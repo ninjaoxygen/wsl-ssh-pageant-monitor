@@ -24,7 +24,7 @@ jobs:
         run: |
           # Variables
           tag=$(git describe --tags --abbrev=0)
-          release_name="${{ github.repository }}-$tag"
+          release_name="${{ github.event.repository.name }}-$tag"
           # Publish
           dotnet publish --no-restore -c Release -o "$release_name"
           # Zip the build
