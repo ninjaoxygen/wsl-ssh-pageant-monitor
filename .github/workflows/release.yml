@@ -5,7 +5,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
@@ -20,18 +20,18 @@ jobs:
         run: dotnet restore -r win-x64
 
       - name: Build
-        shell: bash
+        shell: pwsh
         run: |
           # Variables
-          tag=$(git describe --tags --abbrev=0)
+          tag=git describe --tags --abbrev=0
           release_name="${{ github.event.repository.name }}-$tag"
           # Publish
           dotnet publish --no-restore --no-self-contained -r win-x64 -c Release -o "$release_name"
-          cd "${release_name}"
+          pushd "${release_name}"
           # Zip the build
-          7z a -tzip "../${release_name}.zip" "*"
+          7z a -tzip "..\${release_name}.zip" "*"
           # Go back
-          cd ..
+          popd ..
           # Delete output directory
           rm -r "$release_name"
 
