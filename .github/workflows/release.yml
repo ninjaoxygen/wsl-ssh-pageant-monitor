@@ -19,12 +19,14 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore -r win-x64
 
+      - name: Get the tag name
+        run: echo "TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+
       - name: Build
         shell: pwsh
         run: |
           # Variables
-          tag=git describe --tags --abbrev=0
-          release_name="${{ github.event.repository.name }}-$tag"
+          release_name="${{ github.event.repository.name }}-$Env:TAG"
           # Publish
           dotnet publish --no-restore --no-self-contained -r win-x64 -c Release -o "$release_name"
           pushd "${release_name}"
