@@ -24,7 +24,7 @@ jobs:
         run: |
           # Variables
           $repository_name="${{ github.event.repository.name }}"
-          $tag="${{ github.event.ref }}" -replace -replace "refs/tags/", ""
+          $tag="${{ github.event.ref }}" -replace "refs/tags/", ""
           $release_name="${repository_name}-${tag}"
           echo Building ${release_name}
           # Publish
