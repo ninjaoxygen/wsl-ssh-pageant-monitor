@@ -26,7 +26,10 @@ jobs:
         shell: pwsh
         run: |
           # Variables
-          $release_name="${{ github.event.repository.name }}-$Env:TAG"
+          $repository_name="${{ github.event.repository.name }}"
+          $tag="${{ github.event.ref }}"
+          $release_name="${repository_name}-${tag}"
+          echo Building ${release_name}
           # Publish
           dotnet publish --no-restore --no-self-contained -r win-x64 -c Release -o "$release_name"
           pushd "${release_name}"
