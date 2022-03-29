@@ -33,7 +33,7 @@ jobs:
           # Zip the build
           7z a -tzip "..\${release_name}.zip" "*"
           # Go back
-          popd ..
+          popd
           # Delete output directory
           rm -r "$release_name"
 
