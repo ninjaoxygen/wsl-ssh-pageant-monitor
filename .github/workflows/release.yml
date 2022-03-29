@@ -26,7 +26,7 @@ jobs:
         shell: pwsh
         run: |
           # Variables
-          release_name="${{ github.event.repository.name }}-$Env:TAG"
+          $release_name="${{ github.event.repository.name }}-$Env:TAG"
           # Publish
           dotnet publish --no-restore --no-self-contained -r win-x64 -c Release -o "$release_name"
           pushd "${release_name}"
