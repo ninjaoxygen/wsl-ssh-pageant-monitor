@@ -19,15 +19,12 @@ jobs:
       - name: Restore dependencies
         run: dotnet restore -r win-x64
 
-      - name: Get the tag name
-        run: echo "TAG=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
-
       - name: Build
         shell: pwsh
         run: |
           # Variables
           $repository_name="${{ github.event.repository.name }}"
-          $tag="${{ github.event.ref }}"
+          $tag="${{ github.event.ref }}" -replace -replace "refs/tags/", ""
           $release_name="${repository_name}-${tag}"
           echo Building ${release_name}
           # Publish
