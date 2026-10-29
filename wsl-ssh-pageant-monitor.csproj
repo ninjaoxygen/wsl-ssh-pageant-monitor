@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net10.0</TargetFramework>
@@ -7,9 +6,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <PropertyGroup>
     <PublishAot>true</PublishAot>
   </PropertyGroup>
-
+  <PropertyGroup>
+    <Version>0.0.20</Version>
+  </PropertyGroup>
 </Project>
